@@ -1,4 +1,4 @@
-# 🧨 Martillazonion - Carga Distribuida contra Servicios .onion
+# 🛠️ Martillazonion - Carga Distribuida contra Servicios .onion
 
 `Martillazonion` es una herramienta ofensiva para pruebas de carga o denegación de servicio (DoS) sobre servicios `.onion` en la red Tor. Usa múltiples instancias de Tor sobre distintos puertos SOCKS5 para rotar conexiones y maximizar el impacto sin saturar una sola salida.
 
