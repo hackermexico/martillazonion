@@ -8,7 +8,7 @@
 - `martillazonion_multi.py`: Versión mejorada que balancea ataques sobre múltiples instancias Tor.
 - `tor-multi-launcher.sh`: Script para iniciar instancias de Tor en puertos 9055 al 9060.
 - `tor-multi-stop.sh`: Script para detener todas esas instancias de forma limpia.
-
+- `browser_onion.py`: Script para buscar sitios .onion desde la terminal
 ---
 
 ## 🚀 Requisitos
