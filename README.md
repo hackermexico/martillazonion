@@ -97,6 +97,64 @@ Auditorías controladas en servicios propios.
 
 Simulaciones de resistencia en laboratorios.
 
+# buscaonion
+
+Buscador y fuzzer avanzado de sitios .onion (deep web) con soporte multimotor, escaneo de puertos, dorks y detección de tecnologías. Ideal para OSINT, pentesting y exploración h4x0r.
+
+## Características
+- Búsqueda en más de 10 motores onion (ahmia, darksearch, phobos, onionland, tordex, haystak, torch, notevil, kilos, recon, candle, deepsearch, onionsearch, darknetlive).
+- Fuzzing/dorks automáticos sobre cada .onion encontrado (admin, login, backup, .git, etc).
+- Escaneo de puertos básicos (tipo nmap) y banner grabber.
+- Detección de tecnologías (Apache, nginx, PHP, etc).
+- Feedback en tiempo real y resumen de hallazgos.
+- Exporta resultados a `resultados_onion_fuzz.txt`.
+- Ctrl+C para cerrar y guardar todo.
+
+## Uso rápido
+1. Instala dependencias:
+   ```bash
+   bash instalar_dependencias_onion.sh
+   ```
+2. Ejecuta el script:
+   ```bash
+   python3 browser_onion.py
+   ```
+3. Ingresa una o varias palabras clave (separadas por coma) y deja que la tool haga el resto.
+
+## Requisitos
+- Python 3
+- Tor corriendo en 127.0.0.1:9050
+- Linux recomendado
+
+## Autor
+by SaturniCipher basado en codigo debugsec
+
+---
+
+# browser_onion.py (versión básica)
+
+Script simple para buscar sitios .onion usando Ahmia y mostrar resultados en consola.
+
+## Uso
+1. Instala dependencias:
+   ```bash
+   pip3 install requests[socks] beautifulsoup4 rich
+   ```
+2. Ejecuta:
+   ```bash
+   python3 browser_onion.py
+   ```
+3. Ingresa una palabra clave y verás los .onion encontrados.
+
+## Características
+- Busca en Ahmia por keyword.
+- Muestra resultados en consola con colores.
+- Exporta a `resultados_onion_fuzz.txt`.
+- Ctrl+C para guardar y salir.
+
+## Autor
+by DebugSec
+
 Experimentación en entornos legales y educativos.
 
 NO lo uses para atacar servicios de terceros. El mal uso de esta herramienta es tu total responsabilidad.
