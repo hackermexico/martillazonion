@@ -9,7 +9,8 @@
 - `tor-multi-launcher.sh`: Script para iniciar instancias de Tor en puertos 9055 al 9060.
 - `tor-multi-stop.sh`: Script para detener todas esas instancias de forma limpia.
 - `browser_onion.py`: Script para buscar sitios .onion desde la terminal.
-- 'buscadonion.py': Script para metabuscar en casi todos los buscadores de la deepweb.
+- `buscadonion.py`: Script para metabuscar en casi todos los buscadores de la deepweb.
+- `crawleronion.py`: Script para rastrear sitios accesibles únicamente a través de la red Tor. Extrae los enlaces presentes en una página .onion, guarda los resultados en archivos .json y .csv, y presenta la información de forma organizada y automatizada.
 ---
 
 ## 🚀 Requisitos
